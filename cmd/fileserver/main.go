@@ -16,7 +16,7 @@ func main() {
 	// does not exist, and that new log entries are added to the end.
 	logFile, err := os.OpenFile("server.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalf("failed to open log file: %v", err)
+		log.Fatalf("failed to open log file: %v\n", err)
 	}
 	defer logFile.Close()
 
@@ -40,6 +40,6 @@ func main() {
 
 	// Start the server and block until it returns an error.
 	if err := s.HTTP.ListenAndServe(); err != nil {
-		logger.Fatalf("error starting server: %s", err)
+		logger.Fatalf("error starting server: %s\n", err)
 	}
 }
