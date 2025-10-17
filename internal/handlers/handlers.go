@@ -118,7 +118,7 @@ func (h *Handlers) UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 				// It's good practice to remove the partial file to avoid leaving corrupted data.
 				if removeErr := os.Remove(filepath.Join(h.uploader.StorageDir, fh.Filename)); removeErr != nil {
-					h.logger.Printf("failed to remove partial file '%s': %v", fh.Filename, removeErr)
+					h.logger.Printf("failed to remove partial file '%s': %v\n", fh.Filename, removeErr)
 				}
 				continue
 			}
@@ -212,7 +212,7 @@ func (h *Handlers) DownloadHandle(w http.ResponseWriter, r *http.Request) {
 
 	_, err = io.Copy(w, file)
 	if err != nil {
-		h.logger.Printf("Error transferring file %s: %v", fileName, err)
+		h.logger.Printf("Error transferring file %s: %v\n", fileName, err)
 		return
 	}
 }
