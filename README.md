@@ -58,7 +58,7 @@ The server writes log entries to two destinations simultaneously:
 Navigate to the project's root directory and run the application:
 
 ```bash
-go run ./cmd/
+go run ./cmd/fileserver/
 ```
 
 The server will start on the address specified in your `fileserver.yaml`.
