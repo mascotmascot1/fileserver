@@ -1,2 +1,5 @@
 storage/
 fileserver.exe
+fileserver-linux-amd64
+fileserver-android-arm64
+server.log

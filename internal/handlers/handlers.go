@@ -192,6 +192,11 @@ func (h *Handlers) DownloadHandle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if fileInfo.IsDir() {
+		http.Error(w, "requested path is a directory", http.StatusForbidden)
+		return
+	}
+
 	// Set headers to instruct the browser to download the file rather than displaying it.
 	// Content-Length allows the browser to show download progress.
 	w.Header().Set("Content-Length", fmt.Sprint(fileInfo.Size()))
