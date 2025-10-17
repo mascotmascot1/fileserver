@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -226,20 +227,27 @@ func (h *Handlers) DownloadList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	files, err := os.ReadDir(h.uploader.StorageDir)
+	// Why strings.Builder? To efficiently build the list in memory.
+	var sb strings.Builder
+	sb.WriteString("Files currently available:\n")
+	err := filepath.WalkDir(h.uploader.StorageDir, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
+		relPath, err := filepath.Rel(h.uploader.StorageDir, path)
+		if err != nil {
+			return err
+		}
+		sb.WriteString(relPath)
+		sb.WriteByte('\n')
+		return nil
+	})
 	if err != nil {
 		http.Error(w, "internal error", http.StatusInternalServerError)
 		return
-	}
-
-	// Why strings.Builder? To efficiently build the list in memory.
-	// It's significantly more performant than repeated string concatenation (`+=`),
-	// as it minimises memory allocations.
-	var sb strings.Builder
-	sb.WriteString("Files currently available:\n")
-	for _, file := range files {
-		sb.WriteString(file.Name())
-		sb.WriteByte('\n')
 	}
 	fileList := sb.String()
 
