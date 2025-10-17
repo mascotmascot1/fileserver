@@ -64,7 +64,7 @@ func NewConfig(path string, logger *log.Logger) (*Config, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		if os.IsNotExist(err) {
-			logger.Printf("warn: config file '%s' not found, using default settings.", path)
+			logger.Printf("warn: config file '%s' not found, using default settings.\n", path)
 			return &cfg, nil
 		}
 		// Any other error (e.g., permissions) is considered fatal.
