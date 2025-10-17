@@ -1,0 +1,14 @@
+server:
+  # The network address for the server (format: "host:port").
+  # An empty host (e.g., ":8080") means listening on all available network interfaces (0.0.0.0).
+  address: ":8080"
+  # Connection timeouts to protect against slow clients and resource exhaustion.
+  # Valid time units are "ns", "ms", "s", "m", "h" (e.g., "500ms", "1m30s").
+  readTimeout: 5s 
+  writeTimeout: 10s
+  idleTimeout: 15s
+
+uploader:
+  storageDir: "storage"
+  maxUploadSizeMB: 3072 # 3 GB
+  maxFormMemSizeMB: 32   # 32 MB
