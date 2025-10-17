@@ -24,6 +24,8 @@ A simple, secure, and configurable file server written in Go. Designed for easy 
 Before running the server, create a `fileserver.yaml` file in the root of the project. You can start with the example below.
 If this file is not found, the server will start with default settings defined in internal/config/config.go. 
 
+The example below shows a complete configuration. All fields are essential and should be defined to ensure the server runs reliably.
+
 ```yaml
 server:
   # The network address for the server (format: "host:port").
