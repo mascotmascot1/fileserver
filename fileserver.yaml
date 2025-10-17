@@ -1,14 +1,21 @@
 server:
   # The network address for the server (format: "host:port").
-  # An empty host (e.g., ":8080") means listening on all available network interfaces (0.0.0.0).
+  # An empty host (e.g., ":8090") means listening on all available network interfaces (0.0.0.0).
   address: ":8090"
+  
   # Connection timeouts to protect against slow clients and resource exhaustion.
   # Valid time units are "ns", "ms", "s", "m", "h" (e.g., "500ms", "1m30s").
-  readTimeout: 5s 
+  readTimeout: 5s
   writeTimeout: 10s
-  idleTimeout: 15s
+  idleTimeout: 30s
 
 uploader:
+  # The directory where uploaded files will be stored.
   storageDir: "storage"
-  maxUploadSizeMB: 3072 # 3 GB
-  maxFormMemSizeMB: 32   # 32 MB
+
+  # The maximum permitted size of a single upload request, in megabytes (MB).
+  maxUploadSizeMB: 3072 
+  
+  # The maximum amount of memory (in MB) to use for parsing a multipart form
+  # before spooling file parts to temporary files on disk.
+  maxFormMemSizeMB: 32

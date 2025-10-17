@@ -18,6 +18,7 @@ A simple, secure, and configurable file server written in Go. Designed for easy 
 ### 1\. Configuration
 
 Before running the server, create a `fileserver.yaml` file in the root of the project. You can start with the example below.
+If this file is not found, the server will start with default settings defined in internal/config/config.go. 
 
 ```yaml
 server:
@@ -29,19 +30,28 @@ server:
   # Valid time units are "ns", "ms", "s", "m", "h" (e.g., "500ms", "1m30s").
   readTimeout: 5s
   writeTimeout: 10s
-  idleTimeout: 15s
+  idleTimeout: 30s
 
 uploader:
   # The directory where uploaded files will be stored.
   storageDir: "storage"
 
   # The maximum permitted size of a single upload request, in megabytes (MB).
-  maxUploadSizeMB: 3072 # 3 GB
+  maxUploadSizeMB: 3072 
   
   # The maximum amount of memory (in MB) to use for parsing a multipart form
   # before spooling file parts to temporary files on disk.
   maxFormMemSizeMB: 32
 ```
+
+---
+## 🪵 Logging
+
+The server writes log entries to two destinations simultaneously:
+
+* **Standard Output (stdout):** For real-time monitoring in your console.
+* **`server.log` file:** A persistent log file that is created in the same directory where the executable is run. This file is appended to on subsequent runs.
+---
 
 ### 2\. Run the Server
 
@@ -61,7 +71,7 @@ You can interact with the server using any HTTP client, such as `curl` or Postma
 
 ### Upload a File
 
-To upload a file, send a `POST` request with `multipart/form-data`.
+To upload a file, send a `POST` request with `multipart/form-data` to the `/upload` endpoint.
 
 ```bash
 # Replace 'path/to/your/file.txt' with the actual file path.

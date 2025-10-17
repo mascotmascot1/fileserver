@@ -49,14 +49,14 @@ func NewConfig(path string, logger *log.Logger) (*Config, error) {
 	// Initialise with default values, which will be used if the config file is not found.
 	var cfg = Config{
 		Server: ServerConfig{
-			Addr:         ":8080",
+			Addr:         ":8090",
 			ReadTimeout:  5 * time.Second,
 			WriteTimeout: 10 * time.Second,
 			IdleTimeout:  30 * time.Second,
 		},
 		Uploader: UploaderConfig{
 			StorageDir:       "storage",
-			MaxUploadSizeMB:  1024,
+			MaxUploadSizeMB:  3072,
 			MaxFormMemSizeMB: 32,
 		},
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"log"
 	"os"
 
@@ -11,8 +12,21 @@ import (
 func main() {
 	const configPath = "fileserver.yaml"
 
-	// Load application configuration from the specified path.
-	logger := log.New(os.Stdout, "[FILE SERVER] ", log.LstdFlags)
+	// Open the log file for appending. The flags ensure the file is created if it
+	// does not exist, and that new log entries are added to the end.
+	logFile, err := os.OpenFile("server.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("failed to open log file: %v", err)
+	}
+	defer logFile.Close()
+
+	// Create a MultiWriter to direct log output to both standard output (the console)
+	// and the log file simultaneously.
+	mw := io.MultiWriter(os.Stdout, logFile)
+
+	// Initialise the application's logger to use the multi-writer. This instance will
+	// be injected as a dependency into other parts of the application.
+	logger := log.New(mw, "[FILE SERVER] ", log.LstdFlags)
 
 	// Load application configuration from the specified path.
 	cfg, err := config.NewConfig(configPath, logger)
