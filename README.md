@@ -4,7 +4,7 @@
 
 # 📁 Go Fileserver
 
-A simple, secure, and configurable file server written in Go. Designed for easy file sharing within a local network, but can also be safely exposed to the internet.
+A simple, secure, and configurable file server written in Go. Designed for easy file sharing within a local network. It is technically robust and secure against common vulnerabilities (like Path Traversal and DoS), but does not include an authentication layer by default.
 
 ## ✨ Features
 
