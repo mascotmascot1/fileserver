@@ -103,10 +103,10 @@ To create a standalone executable, run the following command from the project ro
 
 ```bash
 # For Linux/macOS
-go build -o fileserver ./cmd/
+go build -o fileserver ./cmd/fileserver/
 
 # For Windows
-go build -o fileserver.exe ./cmd/
+go build -o fileserver.exe ./cmd/fileserver/
 ```
 
 This will create a `fileserver` (or `fileserver.exe`) binary that you can run anywhere.
