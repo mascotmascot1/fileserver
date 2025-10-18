@@ -121,4 +121,4 @@ This will create a `fileserver` (or `fileserver.exe`) binary that you can run an
 
 ## 📜 Licence
 
-This project is licensed under the MIT Licence. See the `LICENSE` file for details.
+This project is licensed under the MIT Licence. See the [`LICENSE`](./LICENSE) file for details.
