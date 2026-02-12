@@ -1,4 +1,4 @@
-🇺🇸 [English version of this documentation](./README.en.md)
+### 🇺🇸 [English version of this documentation](./README.en.md)
 
 
 [![Go](https://img.shields.io/badge/Go-1.20%2B-007acc?style=for-the-badge)](https://go.dev)
