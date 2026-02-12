@@ -1,124 +1,135 @@
+### 🇺🇸 [English version of this documentation](./README.en.md)
+
+
 [![Go](https://img.shields.io/badge/Go-1.20%2B-007acc?style=for-the-badge)](https://go.dev)
 [![Release](https://img.shields.io/github/release/mascotmascot1/fileserver.svg?label=Release&color=007acc&style=for-the-badge)](https://github.com/mascotmascot1/fileserver/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-007acc?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 # 📁 Go Fileserver
 
-A simple, secure, and configurable file server written in Go. Designed for easy file sharing within a local network. It is technically robust and secure against common vulnerabilities (like Path Traversal and DoS), but does not include an authentication layer by default.
+Простой, безопасный и настраиваемый файловый сервер, написанный на Go. Предназначен для удобного обмена файлами в локальной сети. Проект технически надежен и защищен от распространенных уязвимостей (таких как **Path Traversal** и **DoS**), однако не включает возможность аутентификации.
 
-## ✨ Features
+## ✨ Возможности
 
-  * **📤 Upload multiple files** at once via multipart/form-data.
-  * **📥 Download individual files** by name.
-  * **📋 List all available files** in the storage directory.
-  * **🔒 Secure by design**, with built-in protection against Path Traversal attacks.
-  * **⚙️ Fully configurable** via a single `fileserver.yaml` file.
-  * **⚡ Efficient and lightweight**, with minimal resource usage and robust error handling.
+* **📤 Загрузка нескольких файлов** одновременно через `multipart/form-data`.
+* **📥 Скачивание файлов** по их имени.
+* **📋 Список файлов:** возможность просмотреть все файлы, доступные в хранилище.
+* **🔒 Безопасность:** встроенная защита от атак типа **Path Traversal**.
+* **⚙️ Гибкая настройка** через единый файл конфигурации `fileserver.yaml`.
+* **⚡ Легковесность:** минимальное потребление ресурсов и надежная обработка ошибок.
 
 -----
 
-## 🚀 Getting Started
+## 🚀 Приступим к работе
 
-### 1\. Configuration
+### 1. Конфигурация
 
-Before running the server, create a `fileserver.yaml` file in the root of the project. You can start with the example below.
-If this file is not found, the server will start with default settings defined in internal/config/config.go. 
+Перед запуском сервера создайте файл `fileserver.yaml` в корневой директории проекта. Вы можете использовать пример ниже. 
+Если файл не будет найден, сервер запустится с настройками по умолчанию, определенными в `internal/config/config.go`.
 
-The example below shows a complete configuration. All fields are essential and should be defined to ensure the server runs reliably.
+Все поля в примере ниже являются важными для стабильной работы сервера.
 
 ```yaml
 server:
-  # The network address for the server (format: "host:port").
-  # An empty host (e.g., ":8090") means listening on all available network interfaces (0.0.0.0).
+  # Сетевой адрес сервера (формат "хост:порт").
+  # Пустой хост (например, ":8090") означает прослушивание всех интерфейсов (0.0.0.0).
   address: ":8090"
   
-  # Connection timeouts to protect against slow clients and resource exhaustion.
-  # Valid time units are "ns", "ms", "s", "m", "h" (e.g., "500ms", "1m30s").
+  # Тайм-ауты соединений для защиты от медленных клиентов и исчерпания ресурсов.
+  # Допустимые единицы времени: "ns", "ms", "s", "m", "h" (например, "500ms", "1m30s").
   readTimeout: 5s
   writeTimeout: 10s
   idleTimeout: 30s
 
 uploader:
-  # The directory where uploaded files will be stored.
+  # Директория, где будут храниться загруженные файлы.
   storageDir: "storage"
 
-  # The maximum permitted size of a single upload request, in megabytes (MB).
+  # Максимально допустимый размер одного запроса на загрузку (в МБ).
   maxUploadSizeMB: 3072 
   
-  # The maximum amount of memory (in MB) to use for parsing a multipart form
-  # before spooling file parts to temporary files on disk.
+  # Максимальный объем памяти (в МБ) для парсинга multipart-формы
+  # перед сбросом частей файла во временные файлы на диске.
   maxFormMemSizeMB: 32
+
 ```
 
 ---
-## 🪵 Logging
 
-The server writes log entries to two destinations simultaneously:
+## 🪵 Логирование
 
-* **Standard Output (stdout):** For real-time monitoring in your console.
-* **`server.log` file:** A persistent log file that is created in the same directory where the executable is run. This file is appended to on subsequent runs.
+Сервер записывает события одновременно в два места:
+
+* **Стандартный вывод (stdout):** для мониторинга в реальном времени в консоли.
+* **Файл `server.log`:** постоянный лог-файл, создаваемый в директории запуска. Новые записи добавляются в конец файла при каждом запуске.
+
 ---
 
-### 2\. Run the Server
+### 2. Запуск сервера
 
-Navigate to the project's root directory and run the application:
+Перейдите в корневую директорию проекта и запустите приложение:
 
 ```bash
 go run ./cmd/fileserver/
+
 ```
 
-The server will start on the address specified in your `fileserver.yaml`.
+Сервер будет запущен по адресу, указанному в вашем `fileserver.yaml`.
 
------
+---
 
-## 🛠️ API Usage
+## 🛠️ Использование API
 
-You can interact with the server using any HTTP client, such as `curl` or Postman.
+Вы можете взаимодействовать с сервером через любой HTTP-клиент, например `curl` или `Postman`.
 
-### Upload a File
+### Загрузка файла
 
-To upload a file, send a `POST` request with `multipart/form-data` to the `/upload` endpoint.
+Чтобы загрузить файл, отправьте `POST` запрос с типом `multipart/form-data` на эндпоинт `/upload`.
 
 ```bash
-# Replace 'path/to/your/file.txt' with the actual file path.
+# Замените 'path/to/your/file.txt' на реальный путь к файлу.
 curl -X POST -F "myFile=@/path/to/your/file.txt" http://localhost:8090/upload
+
 ```
 
-### Download a File
+### Скачивание файла
 
-To download a file, send a `GET` request to the `/download/` endpoint followed by the filename.
+Чтобы скачать файл, отправьте `GET` запрос на `/download/`, указав имя файла.
 
 ```bash
-# This will save the file as 'downloaded-file.zip' in your current directory.
+# Файл будет сохранен как 'downloaded-file.zip' в текущей директории.
 curl -o downloaded-file.zip http://localhost:8090/download/file.zip
+
 ```
 
-### List All Files
+### Список всех файлов
 
-To get a list of all available files, send a `GET` request to `/download/list.txt`.
+Чтобы получить список всех доступных файлов, отправьте `GET` запрос на `/download/list.txt`.
 
 ```bash
 curl http://localhost:8090/download/list.txt
+
 ```
 
------
+---
 
-## 📦 Building for Production
+## 📦 Сборка для использования
 
-To create a standalone executable, run the following command from the project root:
+Чтобы создать исполняемый файл, выполните следующую команду из корня проекта:
 
 ```bash
-# For Linux/macOS
+# Для Linux/macOS
 go build -o fileserver ./cmd/fileserver/
 
-# For Windows
+# Для Windows
 go build -o fileserver.exe ./cmd/fileserver/
+
 ```
 
-This will create a `fileserver` (or `fileserver.exe`) binary that you can run anywhere.
+Это создаст бинарный файл `fileserver` (или `fileserver.exe`), который можно запускать автономно.
 
------
+---
 
-## 📜 Licence
+## 📜 Лицензия
 
-This project is licensed under the MIT Licence. See the [`LICENSE`](./LICENSE) file for details.
+Этот проект распространяется под лицензией MIT. Подробности см. в файле [`LICENSE`](https://www.google.com/search?q=./LICENSE).
