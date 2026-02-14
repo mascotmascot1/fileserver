@@ -1,6 +1,6 @@
 [![Go](https://img.shields.io/badge/Go-1.20%2B-007acc?style=for-the-badge)](https://go.dev)
 [![Release](https://img.shields.io/github/release/mascotmascot1/fileserver.svg?label=Release&color=007acc&style=for-the-badge)](https://github.com/mascotmascot1/fileserver/releases/latest)
-[![License: MIT](https://img.shields.io/badge/License-MIT-007acc?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-007acc?style=for-the-badge)](https://github.com/mascotmascot1/fileserver/blob/main/LICENSE)
 
 # 📁 Go Fileserver
 
