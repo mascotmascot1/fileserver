@@ -3,7 +3,7 @@
 # 📁 Go Fileserver
 
 [![Go](https://img.shields.io/badge/Go-1.20%2B-007acc?style=for-the-badge)](https://go.dev)
-[![Release](https://img.shields.io/github/release/mascotmascot1/fileserver.svg?label=Release&color=007acc&style=for-the-badge)](https://github.com/mascotmascot1/fileserver/releases/latest)
+[![Release](https://img.shields.io/github/v/tag/mascotmascot1/fileserver?style=for-the-badge&logo=github&color=007acc&label=Release)](https://github.com/mascotmascot1/fileserver/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-007acc?style=for-the-badge)](https://github.com/mascotmascot1/fileserver/blob/main/LICENSE)
 
 Простой, безопасный и настраиваемый файловый сервер, написанный на Go. Предназначен для удобного обмена файлами в локальной сети. Проект технически надежен и защищен от распространенных уязвимостей (таких как **Path Traversal** и **DoS**), однако не включает возможность аутентификации.
